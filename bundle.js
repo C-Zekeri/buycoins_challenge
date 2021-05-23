@@ -852,12 +852,35 @@ const info = [];
 
 const displayData = () => {
     const data = info[0].viewer;
-    
+    console.log(data);
+
     avatar.src = data.avatarUrl;
     user.innerText = data.name;
     username.innerText = data.login;
     bio.innerText = data.bio;
     repoCount.innerText = `${data.repositories.totalCount} results for public repositories`;
+
+    displayRepos(data);
+}
+
+const displayRepos = (data) => {
+    const repoData = data.repositories.nodes;
+    repoData.map((repo) => {
+        const newRepo = document.createElement('div');
+        newRepo.classList.add('repository');
+
+        const repoName = document.createElement('a');
+        repoName.innerText = repo.name;
+        repoName.href = repo.url
+
+        const repoDescription = document.createElement('p');
+        repoDescription.innerText = repo.description;
+
+        //refactor later
+        newRepo.appendChild(repoName);
+        newRepo.appendChild(repoDescription);
+        repoContainer.appendChild(newRepo);
+    })
 }
 
 const url = 'https://api.github.com/graphql';
@@ -870,12 +893,16 @@ const query = `query {
         repositories(affiliations: [OWNER, COLLABORATOR], first: 20) {
             totalCount
             nodes {
-                description
-                forkCount
                 name
-                stargazerCount
-                updatedAt
                 url
+                description
+                primaryLanguage {
+                    name
+                    color
+                }
+                stargazerCount
+                forkCount
+                updatedAt
             }
         }
     }       
@@ -894,7 +921,6 @@ fetch(url, opts)
     .then(res => res.json())
     .then(res => {
         info.push(res.data)
-        console.log(process.env.AUTH_TOKEN)
     })
     .then(() => displayData())
     .catch(console.error);
