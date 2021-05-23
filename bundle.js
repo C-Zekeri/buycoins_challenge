@@ -852,14 +852,12 @@ const info = [];
 
 const displayData = () => {
     const data = info[0].viewer;
-    console.log(data);
 
-    const src = avatar.getAttribute('src');
-    src = data.avatarUrl;
-    user.innerText(data.name);
-    username.innerText(data.login);
-    bio.innerText(data.bio);
-    repoCount.innerText(`${data.repositories.totalCount} reults for public repositories`);
+    avatar.src = data.avatarUrl;
+    user.innerText = data.name;
+    username.innerText = data.login;
+    bio.innerText = data.bio;
+    repoCount.innerText = `${data.repositories.totalCount} results for public repositories`;
 }
 
 const url = 'https://api.github.com/graphql';
@@ -896,9 +894,9 @@ fetch(url, opts)
     .then(res => res.json())
     .then(res => {
         info.push(res.data)
-        console.log(info)
+        console.log(info[0].viewer)
     })
-    .then(info.length && displayData())
+    .then(() => displayData())
     .catch(console.error);
 
 }).call(this)}).call(this,require('_process'))
