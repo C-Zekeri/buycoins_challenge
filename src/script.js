@@ -1,4 +1,4 @@
-const dotenv = require('../node_modules/dotenv');
+const dotenv = require('dotenv');
 dotenv.config();
 
 const avatar = document.getElementById('avatar');
@@ -12,7 +12,7 @@ const info = [];
 
 const displayData = () => {
     const data = info[0].viewer;
-
+    
     avatar.src = data.avatarUrl;
     user.innerText = data.name;
     username.innerText = data.login;
@@ -54,7 +54,7 @@ fetch(url, opts)
     .then(res => res.json())
     .then(res => {
         info.push(res.data)
-        console.log(info[0].viewer)
+        console.log(process.env.AUTH_TOKEN)
     })
     .then(() => displayData())
     .catch(console.error);
