@@ -6,13 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify src/script.js -o bundle.js",
-    "watch": "watchify src/script.js -o bundle.js"
+    "watch": "watchify src/script.js -o bundle.js -v"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "browserify": "^17.0.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
     "watchify": "^4.0.0"
   }
 }

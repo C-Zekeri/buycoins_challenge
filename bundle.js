@@ -851,8 +851,8 @@ const repoContainer = document.querySelector('.repositories');
 const info = [];
 
 const displayData = () => {
-    const data = info.viewer;
-    console.log(info);
+    const data = info[0].viewer;
+    console.log(data);
 
     const src = avatar.getAttribute('src');
     src = data.avatarUrl;
@@ -886,7 +886,7 @@ const query = `query {
 const opts = {
     method: "POST",
     headers: {
-        "Authorization": ` bearer ${process.env.AUTH_TOKEN}`,
+        "Authorization": `bearer ${process.env.AUTH_TOKEN}`,
         "Content-Type": "application/json"
     },
     body: JSON.stringify({ query })
@@ -898,10 +898,8 @@ fetch(url, opts)
         info.push(res.data)
         console.log(info)
     })
-    .then(displayData())
+    .then(info.length && displayData())
     .catch(console.error);
 
-
-//window.onload = () => { displayData() };
 }).call(this)}).call(this,require('_process'))
 },{"../node_modules/dotenv":2,"_process":4}]},{},[5]);
